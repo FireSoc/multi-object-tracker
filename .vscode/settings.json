@@ -1,0 +1,9 @@
+{
+    // For the Microsoft C/C++ extension (IntelliSense)
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/build/debug/compile_commands.json",
+
+    // For clangd-based extensions (Cursor default)
+    "clangd.arguments": [
+        "--compile-commands-dir=${workspaceFolder}/build/debug"
+    ]
+}

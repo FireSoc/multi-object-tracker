@@ -1,0 +1,14 @@
+# Build artifacts
+build/
+cmake-build-*/
+
+# Model weights and large data (download via scripts/, don't commit)
+data/*.onnx
+data/*.weights
+data/*.pt
+data/*.mp4
+data/*.avi
+
+# Editor / OS
+.DS_Store
+.cache/
