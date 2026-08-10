@@ -2,16 +2,24 @@
 // For now this is just a smoke test that OpenCV and Eigen link correctly.
 
 #include <iostream>
-
 #include <Eigen/Dense>
+
 #include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+
+#include "video_source.hpp"
+
 
 int main() {
-    std::cout << "OpenCV version: " << CV_VERSION << '\n';
+    VideoSource source(0);
+    if (!source.is_open()) {
+        std::cerr << "Could not open webcam\n";
+        return 1;
+    }
 
-    Eigen::Matrix2d m;
-    m << 1, 2, 3, 4;
-    std::cout << "Eigen works, det = " << m.determinant() << '\n';
-
-    return 0;
+    cv::Mat frame;
+    while (source.next(frame)) {
+        cv::imshow("tracker", frame);
+        if (cv::waitKey(1) == 'q') break;
+    }
 }

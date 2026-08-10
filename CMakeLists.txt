@@ -30,25 +30,17 @@ message(STATUS "OpenCV version: ${OpenCV_VERSION}")
 
 # --- Core library (src/ + include/) -----------------------------------------
 # All real logic lives here: no main() in this target, ever.
-# Uncomment and list files as you write them:
-#
-# add_library(tracker_core
-#     src/kalman_filter.cpp
-#     src/hungarian.cpp
-#     src/tracker.cpp
-#     src/detector.cpp
-# )
-# target_include_directories(tracker_core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
-# target_link_libraries(tracker_core PUBLIC ${OpenCV_LIBS} Eigen3::Eigen)
-#
-# Then replace "${OpenCV_LIBS} Eigen3::Eigen" with "tracker_core" in the
-# tracker and tracker_tests targets below.
+# Add new files as you write them (kalman_filter.cpp, hungarian.cpp, ...).
+add_library(tracker_core
+    src/video_source.cpp
+)
+target_include_directories(tracker_core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(tracker_core PUBLIC ${OpenCV_LIBS} Eigen3::Eigen)
 
 # --- Main executable (apps/) -------------------------------------------------
 # Just a main() that wires up and runs the library.
 add_executable(tracker apps/main.cpp)
-target_include_directories(tracker PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
-target_link_libraries(tracker PRIVATE ${OpenCV_LIBS} Eigen3::Eigen)
+target_link_libraries(tracker PRIVATE tracker_core)
 
 # --- Examples / practice (examples/) -----------------------------------------
 # Every .cpp in examples/ automatically becomes its own executable
@@ -78,8 +70,7 @@ if(BUILD_TESTS)
     add_executable(tracker_tests
         tests/sanity_test.cpp
     )
-    target_include_directories(tracker_tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
-    target_link_libraries(tracker_tests PRIVATE GTest::gtest_main ${OpenCV_LIBS} Eigen3::Eigen)
+    target_link_libraries(tracker_tests PRIVATE GTest::gtest_main tracker_core)
 
     include(GoogleTest)
     gtest_discover_tests(tracker_tests DISCOVERY_MODE PRE_TEST)
