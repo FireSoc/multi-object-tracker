@@ -9,6 +9,5 @@ struct VideoSource {
     bool is_open() const;
     bool next(cv::Mat& frame);
     cv::VideoCapture capture_;
-
 };
 

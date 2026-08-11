@@ -11,6 +11,7 @@
 
 
 int main() {
+    
     VideoSource source(0);
     if (!source.is_open()) {
         std::cerr << "Could not open webcam\n";
