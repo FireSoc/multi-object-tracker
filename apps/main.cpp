@@ -8,6 +8,7 @@
 #include <opencv2/highgui.hpp>
 
 #include "video_source.hpp"
+#include "motion_detector.hpp"
 
 
 int main() {
@@ -18,8 +19,16 @@ int main() {
         return 1;
     }
 
+    MotionDetector detector;
+
     cv::Mat frame;
     while (source.next(frame)) {
+
+        auto objects = detector.detect(frame);
+        for (const auto& obj : objects) {
+            cv::rectangle(frame, obj.bounding_box, {0, 255, 0}, 2);
+        }
+
         cv::imshow("tracker", frame);
         if (cv::waitKey(1) == 'q') break;
     }

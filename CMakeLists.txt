@@ -21,7 +21,7 @@ add_compile_options(-Wall -Wextra -Wpedantic)
 
 # --- Dependencies -----------------------------------------------------------
 # OpenCV: video capture, image processing, DNN inference (YOLO/COCO models).
-find_package(OpenCV REQUIRED COMPONENTS core imgproc videoio highgui dnn video)
+find_package(OpenCV REQUIRED COMPONENTS core imgproc videoio highgui dnn video geometry)
 
 # Eigen: linear algebra for the Kalman filter (matrices, vectors).
 find_package(Eigen3 REQUIRED NO_MODULE)
@@ -33,6 +33,7 @@ message(STATUS "OpenCV version: ${OpenCV_VERSION}")
 # Add new files as you write them (kalman_filter.cpp, hungarian.cpp, ...).
 add_library(tracker_core
     src/video_source.cpp
+    src/motion_detector.cpp
 )
 target_include_directories(tracker_core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(tracker_core PUBLIC ${OpenCV_LIBS} Eigen3::Eigen)
