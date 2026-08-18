@@ -34,6 +34,8 @@ message(STATUS "OpenCV version: ${OpenCV_VERSION}")
 add_library(tracker_core
     src/video_source.cpp
     src/motion_detector.cpp
+    src/hungarian.cpp
+    src/multi_object_tracker.cpp
 )
 target_include_directories(tracker_core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(tracker_core PUBLIC ${OpenCV_LIBS} Eigen3::Eigen)
@@ -70,6 +72,8 @@ if(BUILD_TESTS)
     # Add new test files here as you write them, e.g. tests/kalman_filter_test.cpp
     add_executable(tracker_tests
         tests/sanity_test.cpp
+        tests/hungarian_test.cpp
+        tests/multi_object_tracker_test.cpp
     )
     target_link_libraries(tracker_tests PRIVATE GTest::gtest_main tracker_core)
 

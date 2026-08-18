@@ -3,11 +3,8 @@
 
 VideoSource::VideoSource(int camera_index) : capture_(camera_index) {}
 
-bool VideoSource::is_open() const {
-    return capture_.isOpened();
-}
+VideoSource::VideoSource(const std::string& video_path) : capture_(video_path) {}
 
-bool VideoSource::next(cv::Mat& frame) {
-    return capture_.read(frame);
-}
+bool VideoSource::is_open() const { return capture_.isOpened(); }
 
+bool VideoSource::next(cv::Mat& frame) { return capture_.read(frame); }
