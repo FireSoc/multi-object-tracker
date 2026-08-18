@@ -2,6 +2,9 @@
 build/
 cmake-build-*/
 
+# Python tooling
+.venv/
+
 # Model weights and large data (download via scripts/, don't commit)
 data/*.onnx
 data/*.weights

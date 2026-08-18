@@ -34,6 +34,7 @@ message(STATUS "OpenCV version: ${OpenCV_VERSION}")
 add_library(tracker_core
     src/video_source.cpp
     src/motion_detector.cpp
+    src/yolo_detector.cpp
     src/hungarian.cpp
     src/multi_object_tracker.cpp
 )
