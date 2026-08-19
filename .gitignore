@@ -4,6 +4,7 @@ cmake-build-*/
 
 # Python tooling
 .venv/
+__pycache__/
 
 # Model weights and large data (download via scripts/, don't commit)
 data/*.onnx
@@ -11,6 +12,7 @@ data/*.weights
 data/*.pt
 data/*.mp4
 data/*.avi
+data/mot17/
 
 # Editor / OS
 .DS_Store

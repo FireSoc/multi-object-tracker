@@ -21,7 +21,7 @@ add_compile_options(-Wall -Wextra -Wpedantic)
 
 # --- Dependencies -----------------------------------------------------------
 # OpenCV: video capture, image processing, DNN inference (YOLO/COCO models).
-find_package(OpenCV REQUIRED COMPONENTS core imgproc videoio highgui dnn video geometry)
+find_package(OpenCV REQUIRED COMPONENTS core imgproc imgcodecs videoio highgui dnn video geometry)
 
 # Eigen: linear algebra for the Kalman filter (matrices, vectors).
 find_package(Eigen3 REQUIRED NO_MODULE)
@@ -45,6 +45,10 @@ target_link_libraries(tracker_core PUBLIC ${OpenCV_LIBS} Eigen3::Eigen)
 # Just a main() that wires up and runs the library.
 add_executable(tracker apps/main.cpp)
 target_link_libraries(tracker PRIVATE tracker_core)
+
+# Headless MOTChallenge evaluator: YOLO detections into the existing tracker.
+add_executable(evaluate_mot apps/evaluate_mot.cpp)
+target_link_libraries(evaluate_mot PRIVATE tracker_core)
 
 # --- Examples / practice (examples/) -----------------------------------------
 # Every .cpp in examples/ automatically becomes its own executable
