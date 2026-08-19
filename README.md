@@ -2,6 +2,10 @@
 
 OpenCV-based object detection with SORT-style multi-object tracking.
 
+## Documentation
+
+[docs/README.md](docs/README.md) — tutorials, how-to guides, API/CLI reference, and design explanation.
+
 ## Debug build and tests
 
 ```sh
